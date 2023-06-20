@@ -1,2 +1,5 @@
 /.idea/
-/venv_new/
+/venv/
+/tests/results/
+/.pytest_cache/
+/allure-report/
