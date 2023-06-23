@@ -17,3 +17,8 @@ class MainPage(BasePage):
         click_form_from_main_page.click()
         return DemoqaPageForms(self.driver)
 
+    def open_element_page(self):
+        open_elements_page = self.find_element(MainPageLocators.OPEN_ELEMENTS_PAGE_LOCATOR)
+        open_elements_page.click()
+        return
+

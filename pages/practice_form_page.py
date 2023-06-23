@@ -1,7 +1,5 @@
-from conftest import driver
 from pages.base_page import BasePage
 from locators.practice_form_locators import PracticeFormLocators
-from selenium.webdriver.common.by import By
 from constants import *
 
 
