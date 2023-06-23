@@ -2,6 +2,7 @@ from pages.practice_form_page import PracticeForm
 import allure
 
 
+@allure.story('all test in one func')
 def test_all_fill_worm(driver):
     page = PracticeForm(driver)
     page.open()

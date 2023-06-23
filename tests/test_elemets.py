@@ -3,6 +3,7 @@ import allure
 from pages.main_page import MainPage
 
 
+@allure.story('Check word "Elements" on elements page')
 def test_elemnts_page(driver):
     page = MainPage(driver)
     page.open()
@@ -10,6 +11,7 @@ def test_elemnts_page(driver):
     assert go_to_elem.get_text_text_box().text == "Elements", "Page not found"
 
 
+@allure.story('Check word "Text Box" on text box page')
 def test_test_box_page(driver):
     page = ElementsPage(driver)
     page.open()
