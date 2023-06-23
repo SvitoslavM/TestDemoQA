@@ -1,9 +1,7 @@
 from pages.base_page import BasePage
 from locators.main_page_locators import MainPageLocators
 from pages.page_demo_forms import DemoqaPageForms
-
-
-# from locators.practice_form_locators import M
+from pages.elements_page import ElementsPage
 
 
 class MainPage(BasePage):
@@ -20,5 +18,6 @@ class MainPage(BasePage):
     def open_element_page(self):
         open_elements_page = self.find_element(MainPageLocators.OPEN_ELEMENTS_PAGE_LOCATOR)
         open_elements_page.click()
-        return
+        return ElementsPage(self.driver)
+
 
