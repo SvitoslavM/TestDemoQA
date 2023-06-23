@@ -1,5 +1,7 @@
+from conftest import driver
 from pages.base_page import BasePage
 from locators.practice_form_locators import PracticeFormLocators
+from selenium.webdriver.common.by import By
 from constants import *
 
 
@@ -34,29 +36,16 @@ class PracticeForm(BasePage):
         change_date = self.find_element(PracticeFormLocators.CHOICE_DATE_BIRTH_LOCATOR)
         change_date.click()
 
-    def write_and_change_subjects(self):
-        choise_subjects = self.find_element(PracticeFormLocators.CLICK_SUBJECTS_LOCATOR)
-        choise_subjects.send_keys(SUBJECTS)
-        click_subjects = self.find_element(PracticeFormLocators.CHOICE_SUBJECTS_LOCATOR)
-        click_subjects.click()
-
     def change_hobbies(self):
         hobbies = self.find_element(PracticeFormLocators.SELECT_HOBBIES_LOCATOR)
         hobbies.click()
 
     def write_current_address(self):
-        adress = self.find_element(PracticeFormLocators.ClICK_CURRENT_ADDRESS_LOCATOR)
-        adress.send_keys(adress)
+        address = self.find_element(PracticeFormLocators.ClICK_CURRENT_ADDRESS_LOCATOR)
+        address.click()
+        address_message = self.find_element(PracticeFormLocators.ClICK_CURRENT_ADDRESS_LOCATOR)
+        address_message.send_keys(CURRENT_ADDRESS)
 
-    def choice_state(self):
-        state = self.find_element(PracticeFormLocators.CLICK_STATE_CHOICE_STATE)
-        state.click()
-        state_choise = self.find_element(PracticeFormLocators.SELECT_NCR_IN_STATE_MENU_LOCATOR)
-        state_choise.click()
-
-    def choice_city(self):
-        city = self.find_element(PracticeFormLocators.CLICK_CITY_IN_STATE_LOCATOR)
-        city.click()
-        choice_city = self.find_element(PracticeFormLocators.SELECT_GUARGON_IN_CITY_LOCATOR)
-        choice_city.click()
-
+    def write_number(self):
+        number = self.find_element(PracticeFormLocators.WHITE_MOBILE_LOCATOR)
+        number.send_keys(MOBILE)
