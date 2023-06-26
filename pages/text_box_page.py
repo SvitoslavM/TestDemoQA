@@ -1,37 +1,29 @@
-from locators.text_box_locators import TextBoxLocators
+from locators.text_box_locators import TextBoxLocators as Locator
 from pages.base_page import BasePage
-from constants import *
+from generator.generator import generated_person
 
 
 class TextBoxPage(BasePage):
-    url = "https://demoqa.com/text-box"
-
-    def __init__(self, driver):
-        super().__init__(driver, self.url)
 
     def get_text_text_box(self):
-        return self.find_element(TextBoxLocators.GET_TEXT_TEXT_BOX_PAGE_LOCATOR)
+        return self.element_is_visible(Locator.text_text_box_page)
 
-    def click_text_box(self):
-        text_box_page = self.find_element(TextBoxLocators.TEXT_BOX_LOCATOR)
-        text_box_page.click()
+    def text_box_form(self):
+        person = generated_person()
+        self.remove_footer()
+        self.element_is_visible(Locator.full_name).send_keys(f'{person.fist_name}  {person.last_name}')
+        self.element_is_visible(Locator.email).send_keys(person.email)
+        self.element_is_visible(Locator.current_address).send_keys(person.current_address)
+        self.element_is_visible(Locator.permanent_address).send_keys(person.permanent_address)
+        self.element_is_visible(Locator.submit).click()
+        return person
 
-    def text_box_f_name(self):
-        full_name = self.find_element(TextBoxLocators.TEXT_BOX_FULLNAME_LOCATOR)
-        full_name.send_keys(f"{FIRST_NAME} ,{LAST_NAME}")
+    def text_box_result(self):
+        result_list = self.elements_are_visible(Locator.result_table)
+        text_box_text = [i.text for i in result_list]
+        return text_box_text
 
     def text_box_mail(self):
-        mail = self.find_element(TextBoxLocators.TEXT_BOX_MAIL_LOCATOR)
-        mail.send_keys(EMAIL)
-
-    def text_box_cur_address(self):
-        address = self.find_element(TextBoxLocators.TEXT_BOX_CUR_ADDRESS_LOCATOR)
-        address.send_keys(CURRENT_ADDRESS)
-
-    def text_box_perm_address(self):
-        p_addres = self.find_element(TextBoxLocators.TEXT_BOX_PERM_ADDRESS_LOCATOR)
-        p_addres.send_keys(PERMANENT_ADDRESS)
-
-    def text_box_click_button(self):
-        button = self.find_element(TextBoxLocators.TEXT_BOX_BUTTON_SUBM_LOCATOR)
-        button.click()
+        result_list = self.elements_are_visible(Locator.result_email)
+        text_box_email = [i.text for i in result_list]
+        return text_box_email

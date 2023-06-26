@@ -2,10 +2,12 @@ from selenium.webdriver.common.by import By
 
 
 class TextBoxLocators:
-    GET_TEXT_TEXT_BOX_PAGE_LOCATOR = (By.XPATH, '//*[@id="app"]/div/div/div[1]/div')
-    TEXT_BOX_LOCATOR = (By.XPATH, '//*[@id="item-0"]')
-    TEXT_BOX_FULLNAME_LOCATOR = (By.XPATH, '//*[@id="userName"]')
-    TEXT_BOX_MAIL_LOCATOR = (By.XPATH, '//*[@id="userEmail"]')
-    TEXT_BOX_CUR_ADDRESS_LOCATOR = (By.XPATH, '//*[@id="currentAddress"]')
-    TEXT_BOX_PERM_ADDRESS_LOCATOR = (By.XPATH, '//*[@id="permanentAddress"]')
-    TEXT_BOX_BUTTON_SUBM_LOCATOR = (By.XPATH, '//*[@id="submit"]')
+    text_text_box_page = (By.XPATH, '//*[@id="app"]/div/div/div[1]/div')
+    full_name = (By.CSS_SELECTOR, '#userName')
+    email = (By.CSS_SELECTOR, '#userEmail')
+    current_address = (By.CSS_SELECTOR, '#currentAddress')
+    permanent_address = (By.CSS_SELECTOR, '#permanentAddress')
+    submit = (By.CSS_SELECTOR, '#submit')
+
+    result_table = (By.XPATH, "//div[@class='border col-md-12 col-sm-12'] //p")
+

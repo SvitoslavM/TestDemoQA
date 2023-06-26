@@ -1,16 +1,17 @@
 from selenium.webdriver.common.by import By
+from random import randint
 
 
 class PracticeFormLocators:
-    WRITE_FIRST_NAME_LOCATOR = (By.XPATH, '//*[@id="firstName"]')
-    WRITE_LAST_NAME_LOCATOR = (By.XPATH, '//*[@id="lastName"]')
-    WRITE_EMAIL_LOCATOR = (By.XPATH, '//*[@id="userEmail"]')
-    CHOICE_GENDER_LOCATOR = (By.XPATH, '//*[@id="genterWrapper"]/div[2]/div[1]/label')
-    WHITE_MOBILE_LOCATOR = (By.XPATH, '//*[@id="userNumber"]')
-    CLICK_ON_DATE_BIRTH_LOCATOR = (By.XPATH, '//*[@id="dateOfBirthInput"]')
-    CHOICE_DATE_BIRTH_LOCATOR = (By.XPATH, '//*[@id="dateOfBirth"]/div[2]/div[2]/div/div/div[2]/div[2]/div[3]/div[4]')
-    SELECT_HOBBIES_LOCATOR = (By.XPATH, '//*[@id="hobbiesWrapper"]/div[2]/div[3]/label')
-    ClICK_CURRENT_ADDRESS_LOCATOR = (By.XPATH, '//*[@id="currentAddress"]')
-    SELECT_GUARGON_IN_CITY_LOCATOR = (By.XPATH, '//*[@id="city"]/div/div[1]/div[1]')
-    GET_TEXT_FORM_PAGE_LOCATOR = (By.XPATH, '//*[@id="app"]/div/div/div[2]/div[2]/div[2]/h5')
-    SUBMIT_BUTTON_LOCATOR = (By.XPATH, '//*[@id="submit"]')
+    FIST_NAME = (By.CSS_SELECTOR, '#firstName')
+    LAST_NAME = (By.CSS_SELECTOR, '#lastName')
+    EMAIL = (By.CSS_SELECTOR, '#userEmail')
+    GENDER = (By.CSS_SELECTOR, f'label[for="gender-radio-{randint(1,3)}"]')
+    MOBILE = (By.CSS_SELECTOR, '#userNumber')
+    SUBJECT = (By.CSS_SELECTOR, '#subjectsInput')
+    HOBBIES = (By.CSS_SELECTOR, f'label[for="hobbies-checkbox-{randint(1,3)}"]')
+    FILE_INPUT = (By.CSS_SELECTOR, '#uploadPicture')
+    CURRENT_ADDRESS = (By.CSS_SELECTOR, '#currentAddress')
+    SUBMIT = (By.CSS_SELECTOR, '#submit')
+
+    RESULT_TABLE = (By.XPATH, "//div[@class='table-responsive'] //td[2]")
