@@ -3,16 +3,18 @@ import random
 from data.data import Person
 from faker import Faker
 
-faker_en = Faker('En')
+faker_en = Faker('en')
+Faker.seed()
 
 
 def generated_person():
-    return Person(
+    yield Person(
         fist_name=faker_en.first_name(),
         last_name=faker_en.last_name(),
+        full_name=faker_en.first_name() + " " + faker_en.last_name(),
         email=faker_en.email(),
-        current_address=faker_en.address(),
-        permanent_address=faker_en.address(),
+        current_address=faker_en.street_address(),
+        permanent_address=faker_en.street_address(),
         mobile=faker_en.msisdn(),
         subject='English'
     )

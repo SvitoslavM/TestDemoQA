@@ -10,7 +10,7 @@ from locators.practice_form_locators import PracticeFormLocators as Locators
 class PracticeForm(BasePage):
 
     def fill_fields_and_submit(self):
-        person = generated_person()
+        person = next(generated_person())
         path = generated_file()
         self.remove_footer()
         self.element_is_visible(Locators.FIST_NAME).send_keys(person.fist_name)
