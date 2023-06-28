@@ -1,5 +1,4 @@
 from selenium.webdriver.support.ui import WebDriverWait as Wait
-from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support import expected_conditions as EC
 
 
@@ -29,6 +28,7 @@ class BasePage:
     def element_is_clickable(self, locator, timeout=5):
         return Wait(self.driver, timeout).until(EC.element_to_be_clickable(locator))
 
+    # scroll page
     def go_to_element(self, element):
         self.driver.execute_script("arguments[0].scrollIntoView();", element)
 

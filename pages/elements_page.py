@@ -25,7 +25,6 @@ class TextBoxPage(BasePage):
         return full_name, email, current_address, permanent_address
 
     def check_filled_form(self):
-        # self.remove_footer()
         full_name = self.element_is_visible(self.locators.CREATED_FULL_NAME).text.split(':')[1]
         email = self.element_is_present(self.locators.CREATED_EMAIL).text.split(':')[1]
         current_address = self.element_is_present(self.locators.CREATED_CURRENT_ADDRESS).text.split(':')[1]
@@ -51,6 +50,7 @@ class CheckBoxPage(BasePage):
             else:
                 break
 
+    # use refactor text from results(data)
     def get_checked_checkboxes(self):
         checked_list = self.elements_are_present(self.locators.CHECKED_ITEMS)
         data = []
@@ -59,6 +59,7 @@ class CheckBoxPage(BasePage):
             data.append(title_item.text)
         return str(data).replace(' ', '').replace('doc', '').replace('.', '').lower()
 
+    # use refactor text from results(data)
     def get_output_result(self):
         result_list = self.elements_are_present(self.locators.OUTPUT_RESULT)
         data = []
