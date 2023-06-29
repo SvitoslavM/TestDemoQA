@@ -3,3 +3,4 @@
 /tests/results/
 /.pytest_cache/
 /allure-report/
+/some_file.py/
