@@ -1,10 +1,14 @@
 import random
 import time
 
+import allure
+
 from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage
 
 
+@allure.title("test elements page")
 class TestElements:
+    @allure.story("Test TextBox page")
     class TestTextBox:
         def test_text_box(self, driver):
             text_box_page = TextBoxPage(driver, 'https://demoqa.com/text-box')
@@ -16,6 +20,7 @@ class TestElements:
             assert current_address == output_cur_addr, 'the current address does not match'
             assert permanent_address == output_per_addr, 'the permanent does not match'
 
+    @allure.story("Test checkbox page")
     class TestCheckBox:
         def test_check_box(self, driver):
             check_box_page = CheckBoxPage(driver, 'https://demoqa.com/checkbox')
@@ -26,6 +31,7 @@ class TestElements:
             output_result = check_box_page.get_output_result()
             assert input_check_box == output_result, 'checkboxes have not been selected'
 
+    @allure.story("Test radio button")
     class TestRadioButton:
         def test_radio_button(self, driver):
             radio_button_page = RadioButtonPage(driver, 'https://demoqa.com/radio-button')
@@ -36,10 +42,14 @@ class TestElements:
             output_impressive = radio_button_page.get_out_put_result_radiobutton()
             radio_button_page.click_on_the_radio_button('no')
             output_no = radio_button_page.get_out_put_result_radiobutton()
-            assert output_yes == 'Yes', "'Yes' have not been selected"
-            assert output_impressive == "Impressive", "'Impressive' have not been selected"
-            assert output_no == 'No', "'No' have not been selected"
+            with allure.story('Test output "yes"'):
+                assert output_yes == 'Yes', "'Yes' have not been selected"
+            with allure.story('Test output "impressive"'):
+                assert output_impressive == "Impressive", "'Impressive' have not been selected"
+            with allure.story("test output 'No'"):
+                assert output_no == 'No', "'No' have not been selected"
 
+    @allure.story("Test web table")
     class TestWebTable:
         def test_web_table_add_person(self, driver):
             web_table_page = WebTablePage(driver, 'https://demoqa.com/webtables')
@@ -50,6 +60,7 @@ class TestElements:
             print(table_result)
             assert input_new_person in table_result
 
+        @allure.story("test web table search person")
         def test_web_table_search_person(self, driver):
             web_table_page = WebTablePage(driver, 'https://demoqa.com/webtables')
             web_table_page.open()
