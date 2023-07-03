@@ -6,10 +6,11 @@ import allure
 from pages.elements_page import TextBoxPage, CheckBoxPage, RadioButtonPage, WebTablePage
 
 
-@allure.title("test elements page")
+@allure.suite("Elements")
 class TestElements:
-    @allure.story("Test TextBox page")
+    @allure.feature('TextBox')
     class TestTextBox:
+        @allure.title('Check TextBox')
         def test_text_box(self, driver):
             text_box_page = TextBoxPage(driver, 'https://demoqa.com/text-box')
             text_box_page.open()
@@ -20,8 +21,9 @@ class TestElements:
             assert current_address == output_cur_addr, 'the current address does not match'
             assert permanent_address == output_per_addr, 'the permanent does not match'
 
-    @allure.story("Test checkbox page")
+    @allure.feature('CheckBox')
     class TestCheckBox:
+        @allure.title('Check CheckBox')
         def test_check_box(self, driver):
             check_box_page = CheckBoxPage(driver, 'https://demoqa.com/checkbox')
             check_box_page.open()
@@ -31,8 +33,9 @@ class TestElements:
             output_result = check_box_page.get_output_result()
             assert input_check_box == output_result, 'checkboxes have not been selected'
 
-    @allure.story("Test radio button")
+    @allure.feature('RadioButton')
     class TestRadioButton:
+        @allure.title('Check RadioButton')
         def test_radio_button(self, driver):
             radio_button_page = RadioButtonPage(driver, 'https://demoqa.com/radio-button')
             radio_button_page.open()
@@ -49,22 +52,43 @@ class TestElements:
             with allure.story("test output 'No'"):
                 assert output_no == 'No', "'No' have not been selected"
 
-    @allure.story("Test web table")
+    @allure.feature("WebTable")
     class TestWebTable:
+        @allure.title('Check to add a person to the table')
         def test_web_table_add_person(self, driver):
             web_table_page = WebTablePage(driver, 'https://demoqa.com/webtables')
             web_table_page.open()
             input_new_person = web_table_page.add_new_person()
             table_result = web_table_page.check_new_added_person()
-            print(input_new_person)
-            print(table_result)
             assert input_new_person in table_result
 
-        @allure.story("test web table search person")
+        @allure.title('Check to search person in table')
         def test_web_table_search_person(self, driver):
             web_table_page = WebTablePage(driver, 'https://demoqa.com/webtables')
             web_table_page.open()
             key_word = web_table_page.add_new_person()[random.randint(0, 5)]
+            time.sleep(0.2)
             web_table_page.search_some_people(key_word)
             table_result = web_table_page.check_search_person()
             assert key_word in table_result, "the person was not found in the table"
+
+        @allure.title('Checking to update the persons info in the table')
+        def test_webtable_update_person_info(self, driver):
+            web_table_page = WebTablePage(driver, 'https://demoqa.com/webtables')
+            web_table_page.open()
+            key_word = web_table_page.add_new_person()[random.randint(0, 5)]
+            web_table_page.search_some_people(key_word)
+            some_word = web_table_page.update_person_info()
+            row = web_table_page.check_search_person()
+            assert some_word == row, "the person card has not been changed"
+
+        @allure.title('Checking to remove a person from the table')
+        def test_webtable_delete_person_info(self, driver):
+            web_table_page = WebTablePage(driver, 'https://demoqa.com/webtables')
+            web_table_page.open()
+            key_word = web_table_page.add_new_person()[random.randint(0, 5)]
+            time.sleep(0.5)
+            web_table_page.search_some_people(key_word)
+            web_table_page.delete_person()
+            text = web_table_page.check_deleted()
+            assert text == 'No rows found'
