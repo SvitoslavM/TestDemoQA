@@ -4,7 +4,7 @@ import allure
 from selenium.webdriver.common.by import By
 
 from locators.elements_page_locators import TextBoxLocators, CheckBoxPageLocators, RadioPageLocators, \
-    WebTablePageLocators
+    WebTablePageLocators, ButtonsPageLocators
 from pages.base_page import BasePage
 from generator.generator import generated_person
 
@@ -188,3 +188,29 @@ class WebTablePage(BasePage):
     def check_count_rows(self):
         list_rows = self.elements_are_present(self.locators.FULL_PEOPLE_LIST)
         return len(list_rows)
+
+
+class ButtonPage(BasePage):
+    locators = ButtonsPageLocators
+
+    @allure.step('Double click')
+    def click_on_double_button(self, type_click):
+        if type_click == "double":
+            self.action_double_click(self.element_is_visible(self.locators.DOUBLE_CLICK_BUTTON))
+            return self.check_clicked_on_the_button(self.locators.SUCCESS_DOUBLE)
+
+    @allure.step('Right click')
+    def click_on_right_button(self, type_click):
+        if type_click == "right":
+            self.action_right_click(self.element_is_visible(self.locators.RIGHT_CLICK_BUTTON))
+            return self.check_clicked_on_the_button(self.locators.SUCCESS_RIGHT)
+
+    @allure.step("Click me or dynamic click")
+    def click_on_dynamic_button(self, type_click):
+        if type_click == "click":
+            self.element_is_visible(self.locators.CLICK_ME_BUTTON).click()
+            return self.check_clicked_on_the_button(self.locators.SUCCESS_CLICK_ME)
+
+    @allure.step('check clicked button')
+    def check_clicked_on_the_button(self, element):
+        return self.element_is_present(element).text
