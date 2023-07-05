@@ -35,16 +35,19 @@ class BasePage:
 
     """remove_footer для удаления рекламы и комфотной работы с сайтом """
 
+    # remove footer
     def remove_footer(self):
         self.driver.execute_script("document.getElementsByTagName('footer')[0].remove();")
         self.driver.execute_script('document.getElementById("fixedban").style.display="None"')
 
+    # double click
     def action_double_click(self, element):
         action = ActionChains(self.driver)
         action.double_click(element)
         action.perform()
         """Пример написания кода для DOUBLE CLICK и RIGHT CLICK 'Библиотека: from selenium.webdriver import ActionChains'"""
 
+    # right click
     def action_right_click(self, element):
         action = ActionChains(self.driver)
         action.context_click(element)
