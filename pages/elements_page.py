@@ -219,24 +219,85 @@ class ButtonPage(BasePage):
 class LinksPage(BasePage):
     locators = LinksPageLocators
 
+    @allure.step('check home link')
     def check_home_simple_link(self):
         simpl_link = self.element_is_visible(self.locators.SIMPLE_LINK)
         link_href = simpl_link.get_attribute('href')
-        request = requests.get(link_href)
-        if request.status_code == 200:
+        r = requests.get(link_href)
+        if r.status_code == 200:
             simpl_link.click()
             self.driver.switch_to.window(self.driver.window_handles[1])
             url = self.driver.current_url
             return link_href, url
         else:
-            return link_href, request.status_code
+            return link_href, r.status_code
 
-    def check_broken_link(self,url):
-        request = requests.get(url)
-        if request.status_code == 200:
+    @allure.step('check dynamic link')
+    def check_home_dynamic_link(self):
+        dynamic_link = self.element_is_visible(self.locators.DYNAMIC_LINK)
+        link_href = dynamic_link.get_attribute('href')
+        r = requests.get(link_href)
+        if r.status_code == 200:
+            dynamic_link.click()
+            # self.driver.switch_to.window(self.driver.window_handles[1]) -- for switch another page
+            self.driver.switch_to.window(self.driver.window_handles[1])
+            url = self.driver.current_url
+            return link_href, url
+        else:
+            return link_href, r.status_code
+
+    @allure.step('check created link')
+    def check_created_link(self, url):
+        r = requests.get(url)
+        if r.status_code == 200:
+            self.element_is_present(self.locators.CREATED_LINK).click()
+        else:
+            return r.status_code
+
+    @allure.step('check no content link')
+    def check_no_content_link(self, url):
+        r = requests.get(url)
+        if r.status_code == 200:
+            self.element_is_present(self.locators.NO_CONTENT_LINK).click()
+        else:
+            return r.status_code
+
+    @allure.step('check moved link')
+    def check_moved_link(self, url):
+        r = requests.get(url)
+        if r.status_code == 200:
+            self.element_is_present(self.locators.MOVED_LINK).click()
+        else:
+            return r.status_code
+
+    @allure.step('check bad request link')
+    def check_broken_link_by_bad_request(self, url):
+        r = requests.get(url)
+        if r.status_code == 200:
             self.element_is_present(self.locators.BAD_REQUEST).click()
         else:
-            return request.status_code
+            return r.status_code
 
+    @allure.step('check unauthorized link')
+    def check_unauthorized_link(self, url):
+        r = requests.get(url)
+        if r.status_code == 200:
+            self.element_is_present(self.locators.UNAUTHORIZED_LINK).click()
+        else:
+            return r.status_code
 
+    @allure.step('check forbidden link')
+    def check_forbidden_link(self, url):
+        r = requests.get(url)
+        if r.status_code == 200:
+            self.element_is_present(self.locators.FORBIDDEN_LINK).click()
+        else:
+            return r.status_code
 
+    @allure.step('check not found link')
+    def check_not_found_link(self, url):
+        r = requests.get(url)
+        if r.status_code == 200:
+            self.element_is_present(self.locators.NOT_FOUND_LINK).click()
+        else:
+            return r.status_code

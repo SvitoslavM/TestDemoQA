@@ -128,16 +128,67 @@ class TestElements:
             print(click)
             assert click == "You have done a dynamic click", 'The dynamic click button was not pressed'
 
+    @allure.feature("Links")
     class TestLinksPage:
+        @allure.title("test home link")
         def test_home_link(self, driver):
             links_page = LinksPage(driver, 'https://demoqa.com/links')
             links_page.open()
             href_link, current_url = links_page.check_home_simple_link()
             assert href_link == current_url, "the link is broken or url is incorrect"
 
-        def test_broken_link(self, driver):
+        @allure.title("test dynamic link")
+        def test_dynamic_link(self, driver):
             links_page = LinksPage(driver, 'https://demoqa.com/links')
             links_page.open()
-            response_code = links_page.check_broken_link('https://demoqa.com/bad-request')
+            href_link, current_url = links_page.check_home_dynamic_link()
+            assert href_link == current_url, 'the link is broken or url is incorrect'
+
+        @allure.title("test created link get status code 201")
+        def test_created_link(self, driver):
+            links_page = LinksPage(driver, 'https://demoqa.com/links')
+            links_page.open()
+            response_code = links_page.check_created_link('https://demoqa.com/Created')
+            assert response_code == 201, 'the link works or the status code in son 201'
+
+        @allure.title("test no content link get status code 204")
+        def test_no_content_link(self, driver):
+            links_page = LinksPage(driver, 'https://demoqa.com/links')
+            links_page.open()
+            response_code = links_page.check_no_content_link('https://demoqa.com/No-Content')
+            assert response_code == 204, 'the link works or the status code in son 204'
+
+        @allure.title("test moved link get status code 301")
+        def test_moved_link(self, driver):
+            links_page = LinksPage(driver, 'https://demoqa.com/links')
+            links_page.open()
+            response_code = links_page.check_moved_link('https://demoqa.com/Moved')
+            assert response_code == 301, 'the link works or the status code in son 301'
+
+        @allure.title("test bad request link get status code 400")
+        def test_bad_request_link(self, driver):
+            links_page = LinksPage(driver, 'https://demoqa.com/links')
+            links_page.open()
+            response_code = links_page.check_broken_link_by_bad_request('https://demoqa.com/bad-request')
             assert response_code == 400, 'the link works or the status code in son 400'
 
+        @allure.title("test unauthorized link get status code 401")
+        def test_unauthorized_link(self, driver):
+            links_page = LinksPage(driver, 'https://demoqa.com/links')
+            links_page.open()
+            response_code = links_page.check_unauthorized_link('https://demoqa.com/Unauthorized')
+            assert response_code == 401, 'the link works or the status code in son 401'
+
+        @allure.title("test forbidden link get status code 403")
+        def test_forbidden_link(self, driver):
+            links_page = LinksPage(driver, 'https://demoqa.com/links')
+            links_page.open()
+            response_code = links_page.check_unauthorized_link('https://demoqa.com/Forbidden')
+            assert response_code == 403, 'the link works or the status code in son 403'
+
+        @allure.title("test not found link get status code 404")
+        def test_not_found_link(self, driver):
+            links_page = LinksPage(driver, 'https://demoqa.com/links')
+            links_page.open()
+            response_code = links_page.check_not_found_link('https://demoqa.com/invalid-url')
+            assert response_code == 404, 'the link works or the status code in son 404'
